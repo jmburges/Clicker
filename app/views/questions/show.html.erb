@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Content:</b>
+  <%= @question.content %>
+</p>
+
+<p>
+  <b>Correct answer:</b>
+  <%= @question.correct_answer_id %>
+</p>
+
+<p>
+  <b>Startdate:</b>
+  <%= @question.startdate %>
+</p>
+
+<p>
+  <b>Enddate:</b>
+  <%= @question.enddate %>
+</p>
+
+
+<%= link_to 'Edit', edit_question_path(@question) %> |
+<%= link_to 'Back', questions_path %>
