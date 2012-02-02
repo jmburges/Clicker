@@ -1,9 +1,7 @@
 <div id="answer">
 <%= f.label :content, "Answer" %><br />
 <%= f.text_field :content %> <br />
-<% if !@question.new_record? %>
-  <%= radio_button("question", "correct_answer_id",f.object.id) %>
-<%end %>
+<%= f.check_box :correct %><br />
 <%= link_to_remove_fields "remove", f %><br />
  </div>
 

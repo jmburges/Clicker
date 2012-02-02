@@ -1,4 +1,8 @@
 Clicker::Application.routes.draw do
+  resources :courses do
+    resources :questions
+  end
+
   resources :answers
 
   resources :questions
