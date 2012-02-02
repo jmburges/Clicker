@@ -16,10 +16,6 @@
     <%= f.text_field :content %>
   </div>
   <div class="field">
-    <%= f.label :correct_answer_id %><br />
-    <%= f.text_field :correct_answer_id %>
-  </div>
-  <div class="field">
     <%= f.label :startdate %><br />
     <%= f.datetime_select :startdate %>
   </div>
@@ -27,6 +23,12 @@
     <%= f.label :enddate %><br />
     <%= f.datetime_select :enddate %>
   </div>
+  <p>
+  <%= f.fields_for :answers do |builder| %>
+    <%= render "answer_fields", :f => builder%>
+  <% end %>
+  </p>
+  <%= link_to_add_fields "Add Answer", f, :answers%><br />
   <div class="actions">
     <%= f.submit %>
   </div>

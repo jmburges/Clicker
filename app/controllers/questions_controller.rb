@@ -25,6 +25,7 @@ class QuestionsController < ApplicationController
   # GET /questions/new.json
   def new
     @question = Question.new
+    @question.answers.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,15 +36,17 @@ class QuestionsController < ApplicationController
   # GET /questions/1/edit
   def edit
     @question = Question.find(params[:id])
+    @update = true
   end
 
   # POST /questions
   # POST /questions.json
   def create
     @question = Question.new(params[:question])
-
     respond_to do |format|
       if @question.save
+        @question.answers.create(params[:answers])
+        puts params
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
         format.json { render json: @question, status: :created, location: @question }
       else
