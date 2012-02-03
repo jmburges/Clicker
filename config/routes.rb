@@ -5,6 +5,12 @@ Clicker::Application.routes.draw do
 
   resources :answers
 
+ 
+  resources :users
+  resource :user_session
+
+  match "login" => "user_sessions#new"
+  match "logout" => "user_sessions#destroy"
   resources :questions
 
   # The priority is based upon order of creation:
