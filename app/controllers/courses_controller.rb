@@ -25,6 +25,8 @@ class CoursesController < ApplicationController
   # GET /courses/new.json
   def new
     @course = Course.new
+    @students = User.all.select{|u|u.has_role?(:Student)}
+    @teachers = User.all.select{|u|u.has_role?(:Teacher)}
 
     respond_to do |format|
       format.html # new.html.erb

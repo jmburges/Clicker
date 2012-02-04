@@ -11,10 +11,23 @@
     </div>
   <% end %>
 
+
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </div>
+
+  Students:<br />
+  <% @students.each do |user|%>
+    <%= check_box_tag :user_id, user.id, @course.users.include?(user),:name =>"course[course_users_attributes][#{user.id}][user_id]",:id =>"course_course_users_attributes_#{user.id}_user_id" %>
+    <%= user.email %><br />
+  <% end %>
+  <br />
+  Teachers:<br />
+  <% @teachers.each do |user|%>
+    <%= check_box_tag :user_id, user.id, @course.users.include?(user),:name =>"course[course_users_attributes][#{user.id}][user_id]",:id =>"course_course_users_attributes_#{user.id}_user_id" %>
+    <%= user.email %><br />
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

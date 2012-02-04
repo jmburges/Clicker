@@ -1,10 +1,17 @@
 class UsersController < ApplicationController
-  before_filter :require_user, :only => [:index, :show, :edit, :update, :destroy]
-  before_filter :require_no_user, :only => [:new, :create]
+before_filter :load_user, :only => [:edit,:show]
+
+  access_control do 
+    allow :Admin 
+    allow :Teacher, :for => :user, :to => [:edit, :show]
+    allow :Teacher, :to => [:index, :new]
+    allow :Student, :for => :user, :to => [:edit, :show]
+  end
   # GET /users
   # GET /users.json
   def index
     @users = User.all
+
 
     respond_to do |format|
       format.html # index.html.erb
@@ -81,5 +88,10 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url }
       format.json { head :ok }
     end
+  end
+
+  private
+  def load_user
+    @user=User.find(params[:id])
   end
 end
