@@ -45,6 +45,8 @@ class QuestionsController < ApplicationController
     @question = Question.new(params[:question])
     respond_to do |format|
       if @question.save
+        @question.answers.create(params[:answers])
+        puts params
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
         format.json { render json: @question, status: :created, location: @question }
       else
