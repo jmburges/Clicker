@@ -1,4 +1,6 @@
 Clicker::Application.routes.draw do
+  resources :roles
+
   resources :courses do
     resources :questions
   end
