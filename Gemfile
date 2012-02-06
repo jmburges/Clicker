@@ -24,6 +24,7 @@ gem 'jquery-rails'
 gem 'authlogic'
 gem 'cancan'
 gem 'rolify'
+gem 'coffeebeans'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

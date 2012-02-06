@@ -1,0 +1,8 @@
+<div id="open_question">
+  <%= form_tag "#{params[:id]}/open_question", :remote => true %>
+How long?: 
+<%= select_tag :minutes, options_for_select(Array.new(61){|i|i}) %>:
+<%= select_tag :seconds, options_for_select(Array.new(61){|i|i})%><br />
+<%= submit_tag "Open Question" %>
+</div>
+

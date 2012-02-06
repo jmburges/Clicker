@@ -83,4 +83,12 @@ class QuestionsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def open_question
+    @question = Question.find(params[:id])
+    seconds = params[:seconds].to_i+params[:minutes].to_i*60
+    @question.startdate = Time.now
+    @question.enddate= @question.startdate+seconds
+    @question.save
+  end
 end
