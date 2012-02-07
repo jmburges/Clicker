@@ -14,6 +14,7 @@ Clicker::Application.routes.draw do
   match "login" => "user_sessions#new"
   match "logout" => "user_sessions#destroy"
   match "questions/:id/open_question" => "questions#open_question"
+  match "questions/:id/stop" => "questions#stop"
   resources :questions
 
 

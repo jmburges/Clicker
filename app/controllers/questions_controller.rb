@@ -92,4 +92,10 @@ class QuestionsController < ApplicationController
     @question.enddate= @question.startdate+seconds
     @question.save
   end
+
+  def stop
+    @question=Question.find(params[:id])
+    @question.enddate = Time.now
+    @question.save
+  end
 end
