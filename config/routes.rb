@@ -5,7 +5,9 @@ Clicker::Application.routes.draw do
     resources :questions
   end
 
-  resources :answers
+  resources :answers do
+    resources :users
+  end
 
  
   resources :users

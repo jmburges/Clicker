@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles, :join_table => :users_roles
   has_many :courses, :through => :UserCourses
   has_many :UserCourses
+  has_many :UserAnswers
+  has_many :users, :through => :UserAnswers
 
   scope :students, lambda { User.all.select{|user|user.role=="Student"} }
   scope :teachers, lambda { User.all.select{|user|user.role=="Teacher"} }

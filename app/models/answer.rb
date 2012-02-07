@@ -1,5 +1,10 @@
 class Answer < ActiveRecord::Base
   belongs_to :question
+  has_many :users, :through => :UserAnswer
+  has_many :UserAnswers
+
+
+  accepts_nested_attributes_for :users,  :allow_destroy => true
 
   def correct_answer=(answer)
     if(answer)
