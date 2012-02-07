@@ -1,8 +1,12 @@
-<div id="open_question">
-  <%= form_tag "#{params[:id]}/open_question", :remote => true %>
-How long?: 
-<%= select_tag :minutes, options_for_select(Array.new(61){|i|i}) %>:
-<%= select_tag :seconds, options_for_select(Array.new(61){|i|i})%><br />
-<%= submit_tag "Open Question" %>
+<div id="question_countdown">
 </div>
-
+<%= javascript_tag do %>
+  $("#question_countdown").countdown({
+    date: <%=@question.enddate.to_i*1000 %>,
+    htmlTemplate: "%h:%i:%s",
+    onComplete: function(event){
+    alert("done!")},
+    leadingZero: true
+    });
+  <%end%>
+  <%= link_to "Stop", "/questions/#{params[:id]}/stop", :remote=>true %><br />
