@@ -3,14 +3,16 @@ class User < ActiveRecord::Base
   include Rolify::Roles
   # extend Rolify::Dynamic
   has_and_belongs_to_many :roles, :join_table => :users_roles
-  has_many :courses, :through => :UserCourses
+  has_many :Courses, :through => :UserCourses
   has_many :UserCourses
-  has_many :UserAnswers
-  has_many :users, :through => :UserAnswers
+  has_many :useranswers, :class_name => "UserAnswer"
+  has_many :answers, :through => :useranswers
 
   scope :students, lambda { User.all.select{|user|user.role=="Student"} }
   scope :teachers, lambda { User.all.select{|user|user.role=="Teacher"} }
 
+  
+ # accepts_nested_attributes_for :userAnswers,  :reject_if => lambda { |a| a[:answer_id].blank? }, :allow_destroy => true
   
   def role=(role)
     Role::POSSIBLE_ROLES.each do |role|
@@ -21,5 +23,14 @@ class User < ActiveRecord::Base
 
   def role
     self.roles.first.name unless self.roles.empty?
+  end
+
+  def answered_question(question)
+    question.answers.each do |answer|
+      if answers.include?(answer)
+        return answer
+      end
+    end
+    return nil
   end
 end

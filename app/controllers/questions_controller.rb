@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.all
+    @questions = Course.find(params[:course_id]).questions
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,10 +14,17 @@ class QuestionsController < ApplicationController
   # GET /questions/1.json
   def show
     @question = Question.find(params[:id])
+    if answer=current_user.answered_question(@question)
+      @useranswer =UserAnswer.where("user_id=#{current_user.id} AND answer_id=#{answer.id}").first
+    else 
+      @useranswer = current_user.useranswers.build
+    end
+    puts "#"*15
+    puts @useranswer
+    puts "#"*15
 
     respond_to do |format|
       format.html # show.html.erb
-      format.js
       format.json { render json: @question }
     end
   end
@@ -26,7 +33,6 @@ class QuestionsController < ApplicationController
   # GET /questions/new.json
   def new
     @question = Question.new
-    @question.answers.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -37,7 +43,6 @@ class QuestionsController < ApplicationController
   # GET /questions/1/edit
   def edit
     @question = Question.find(params[:id])
-    @update = true
   end
 
   # POST /questions

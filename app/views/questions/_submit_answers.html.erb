@@ -1,0 +1,10 @@
+<br />Answers:<br />
+
+<%= form_for @useranswer do |f| %> 
+  <%= f.hidden_field :user_id %>
+  <% @question.answers.each do |answer|%>
+    <%= f.radio_button :answer_id, answer.id %>
+    <%= answer.content %><br />
+  <% end%>
+  <%= f.submit "Answer" %>
+<% end %>

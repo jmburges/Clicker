@@ -15,10 +15,10 @@
 <b>Enddate:</b>
   <%= @question.enddate %>
   </p>
-  <br />Answers:<br />
-  <% @question.answers.each do |answer|%>
-    <%=answer.content %><br />
+  <% if @question.open? %>
+    <%= render :partial => "submit_answers" %>
   <% end %>
+
   <div id="question_partial">
     <% if @question.open? %>
       <%= render :partial => "open_question" %>
