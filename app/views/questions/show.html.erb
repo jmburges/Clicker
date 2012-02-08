@@ -38,3 +38,12 @@
 <% end %>
 <div id='chart'></div>
 <%= render_chart @chart, 'chart' %>
+<hr>
+<h2>Correct Users</h2>
+<% @question.correct_users.each do |user| %>
+  <%=user.email %>
+<% end %>
+<h2>Incorrect Users</h2>
+<% (@question.users-@question.correct_users).each do |user| %>
+  <%=user.email %>
+<% end %>
