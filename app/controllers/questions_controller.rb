@@ -19,10 +19,16 @@ class QuestionsController < ApplicationController
     else 
       @useranswer = current_user.useranswers.build
     end
-    puts "#"*15
-    puts @useranswer
-    puts "#"*15
-
+    data_table = GoogleVisualr::DataTable.new
+data_table.new_column('string', 'Answer')
+  data_table.new_column('number', 'Responses')
+  data_table.add_rows(@question.answers.size)
+  @question.answers.each_with_index do |answer,i|
+    data_table.set_cell(i,0,answer.content)
+    data_table.set_cell(i,1,answer.users.size)
+  end
+opts   = { :width => 400, :height => 240, :title => 'Responses', :legend=>{:position => "none"} }
+  @chart = GoogleVisualr::Interactive::ColumnChart.new(data_table, opts)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @question }

@@ -1,4 +1,5 @@
 <%= javascript_include_tag "jcountdown" %>
+<script src='http://www.google.com/jsapi'></script>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -35,3 +36,5 @@
   <%= answer.content %>: <%=answer.users.size %>
   <br />
 <% end %>
+<div id='chart'></div>
+<%= render_chart @chart, 'chart' %>
