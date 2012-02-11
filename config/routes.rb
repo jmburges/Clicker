@@ -19,7 +19,6 @@ Clicker::Application.routes.draw do
   match "logout" => "user_sessions#destroy"
   match "questions/:id/open_question" => "questions#open_question"
   match "questions/:id/stop" => "questions#stop"
-  resources :questions
 
 
   # The priority is based upon order of creation:

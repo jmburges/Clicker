@@ -23,6 +23,10 @@
     <%= f.label :enddate %><br />
     <%= f.datetime_select :enddate %>
   </div>
+  <div class="field">
+    <%= f.label :course %><br />
+    <%= f.collection_select :course_id, current_user.courses, :id, :name %>
+  </div>
   <p>
   <%= f.fields_for :answers do |builder| %>
     <%= render "answer_fields", :f => builder%>

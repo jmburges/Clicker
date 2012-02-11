@@ -3,8 +3,7 @@ class User < ActiveRecord::Base
   include Rolify::Roles
   # extend Rolify::Dynamic
   has_and_belongs_to_many :roles, :join_table => :users_roles
-  has_many :Courses, :through => :UserCourses
-  has_many :UserCourses
+  has_and_belongs_to_many :courses, :join_table => :user_courses
   has_many :useranswers, :class_name => "UserAnswer"
   has_many :answers, :through => :useranswers
 
@@ -32,5 +31,17 @@ class User < ActiveRecord::Base
       end
     end
     return nil
+  end
+
+  def admin?
+    self.role=="Admin"
+  end
+
+  def student?
+    self.role=="Student"
+  end
+
+  def teacher?
+    self.role=="Teacher"
   end
 end

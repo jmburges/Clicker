@@ -28,6 +28,14 @@
     <%= f.label :role %><br />
     <%= f.select :role, Role::POSSIBLE_ROLES %>
   </div>
+  <div class="field">
+    <%= f.label :courses %> <br />
+    <% Course.all.each do |course| %>
+      <%= check_box_tag "user[course_ids][]", course.id, @user.courses.include?(course) %>
+      <%= course.name %><br />
+    <%end %>
+  </div>
+    
   <div class="actions">
     <%= f.submit %>
   </div>
