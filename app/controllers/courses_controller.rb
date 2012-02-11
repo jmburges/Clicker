@@ -1,8 +1,8 @@
 class CoursesController < ApplicationController
+  load_and_authorize_resource
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.all
 
     respond_to do |format|
       format.html # index.html.erb

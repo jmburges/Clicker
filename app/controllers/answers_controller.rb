@@ -1,4 +1,5 @@
 class AnswersController < ApplicationController
+  load_and_authorize_resource
   # GET /answers
   # GET /answers.json
   def index

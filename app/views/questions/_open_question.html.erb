@@ -9,4 +9,6 @@
     leadingZero: true
     });
   <%end%>
-  <%= link_to "Stop", "/questions/#{params[:id]}/stop", :remote=>true %><br />
+  <% if can? :update, @question %>
+    <%= link_to "Stop", "/questions/#{params[:id]}/stop", :remote=>true %><br />
+  <% end %>

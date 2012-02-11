@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  check_authorization 
   helper :all
   helper_method :current_user_session, :current_user
   protect_from_forgery

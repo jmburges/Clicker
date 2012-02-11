@@ -1,9 +1,10 @@
 class QuestionsController < ApplicationController
+ load_and_authorize_resource 
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Course.find(params[:course_id]).questions
-
+    #question is loaded by load_and_authorize_resource
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @questions }
@@ -44,6 +45,7 @@ class QuestionsController < ApplicationController
   # GET /questions/new.json
   def new
     @question = Question.new
+    @answers = @question.answers.build
 
     respond_to do |format|
       format.html # new.html.erb
@@ -103,6 +105,7 @@ class QuestionsController < ApplicationController
 
   def open_question
     @question = Question.find(params[:id])
+    authorize! :stop ,@question
     seconds = params[:seconds].to_i+params[:minutes].to_i*60
     @question.startdate = Time.now
     @question.enddate= @question.startdate+seconds
@@ -111,6 +114,7 @@ class QuestionsController < ApplicationController
 
   def stop
     @question=Question.find(params[:id])
+    authorize! :stop ,@question
     @question.enddate = Time.now
     @question.save
   end

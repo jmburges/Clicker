@@ -1,10 +1,9 @@
 class UsersController < ApplicationController
-  before_filter :require_user, :only => [:index, :show, :edit, :update, :destroy]
-  before_filter :require_no_user, :only => [:new, :create]
+  load_and_authorize_resource
+
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -58,6 +57,8 @@ class UsersController < ApplicationController
   # PUT /users/1
   # PUT /users/1.json
   def update
+
+params[:user][:course_ids] ||= []
     @user = User.find(params[:id])
 
     respond_to do |format|

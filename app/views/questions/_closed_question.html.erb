@@ -1,5 +1,5 @@
 <%= form_tag "/questions/#{params[:id]}/open_question", :remote => true %>
-How long?: 
+Open question for
 <%= select_tag :minutes, options_for_select(Array.new(61){|i|i}) %>:
-<%= select_tag :seconds, options_for_select(Array.new(61){|i|i})%><br />
+<%= select_tag :seconds, options_for_select(Array.new(61){|i|i})%>
 <%= submit_tag "Open Question" %>

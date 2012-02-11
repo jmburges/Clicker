@@ -8,22 +8,22 @@
 </p>
 
 <p id="startdate">
-<b>Startdate:</b>
-  <%= @question.startdate %>
+<b>Start:</b>
+<%= l @question.startdate, :format => :long %>
 </pv>
 
 <p id="enddate">
-<b>Enddate:</b>
-  <%= @question.enddate %>
+<b>End:</b>
+<%= l @question.enddate, :format => :long %>
   </p>
-  <% if @question.open? %>
+  <% if @question.open? and can? :update, UserAnswer %>
     <%= render :partial => "submit_answers" %>
   <% end %>
 
   <div id="question_partial">
     <% if @question.open? %>
       <%= render :partial => "open_question" %>
-    <% else %>
+    <% elsif  can? :update, @question%>
       <%= render :partial => "closed_question" %>
     <% end %>
   </div>
@@ -31,6 +31,7 @@
 <%= link_to 'Edit', edit_question_path(@question) %> |
 <%= link_to 'Back', questions_path %>
 <hr>
+<% if can? :view_stats, @question %>
 <h2>Response Stats</h2>
 <% @question.answers.each do |answer| %>
   <%= answer.content %>: <%=answer.users.size %>
@@ -44,6 +45,7 @@
   <%=user.email %>
 <% end %>
 <h2>Incorrect Users</h2>
-<% (@question.users-@question.correct_users).each do |user| %>
+<% (@question.answered_users-@question.correct_users).each do |user| %>
   <%=user.email %>
+<% end %>
 <% end %>

@@ -28,8 +28,21 @@ class Ability
     user ||=User.new
     if user.admin?
       can :manage, :all
+    elsif user.teacher?
+      can :create, Question
+      can [:read,:update,:destroy], Question, :course => {:users => {:id=>user.id}}
+      can [:view_stats,:stop], Question, :course => {:users => {:id=>user.id}}
+      can :manage, Answer, :question => {:course => {:users => {:id => user.id}}}
+      can :manage, Course, :users => {:id =>user.id}
+      can [:read,:update], User, :id=>user.id
+      can :manage, UserSession
     else
-      can :read, :all
+      can :manage, UserSession
+      can :read, Question, :course => {:users => {:id=>user.id}}
+      can :read, Answer, :question => {:course => {:users => {:id => user.id}}}
+      can :read, Course, :users => {:id =>user.id}
+      can :manage, UserAnswer, :answer => {:question =>{:course => {:users =>{:id=>user.id}}}}
+      can [:read,:update], User, :id=>user.id
     end
   end
 end
