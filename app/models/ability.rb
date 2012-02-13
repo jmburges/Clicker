@@ -36,13 +36,15 @@ class Ability
       can :manage, Course, :users => {:id =>user.id}
       can [:read,:update], User, :id=>user.id
       can :manage, UserSession
-    else
+    elsif user.student?
       can :manage, UserSession
       can :read, Question, :course => {:users => {:id=>user.id}}
       can :read, Answer, :question => {:course => {:users => {:id => user.id}}}
       can :read, Course, :users => {:id =>user.id}
       can :manage, UserAnswer, :answer => {:question =>{:course => {:users =>{:id=>user.id}}}}
       can [:read,:update], User, :id=>user.id
+    else
+      can :manage, UserSession
     end
   end
 end

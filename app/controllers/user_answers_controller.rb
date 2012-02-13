@@ -1,11 +1,12 @@
 class UserAnswersController < ApplicationController
+  load_and_authorize_resource
   # POST /useranswers
   # POST /useranswers.json
   def create
     @useranswer = UserAnswer.new(params[:user_answer])
     respond_to do |format|
       if @useranswer.save
-        format.html { redirect_to @useranswer, notice: 'useranswer was successfully created.' }
+        format.html { redirect_to @useranswer.answer.question, notice: 'useranswer was successfully created.' }
         format.json { render json: @useranswer, status: :created, location: @useranswer }
       else
         format.html { render action: "new" }
@@ -21,7 +22,7 @@ class UserAnswersController < ApplicationController
 
     respond_to do |format|
       if @useranswer.update_attributes(params[:user_answer])
-        format.html { redirect_to @useranswer, notice: 'useranswer was successfully updated.' }
+        format.html { redirect_to @useranswer.answer.question, notice: 'useranswer was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -37,7 +38,7 @@ class UserAnswersController < ApplicationController
     @useranswer.destroy
 
     respond_to do |format|
-      format.html { redirect_to useranswers_url }
+      format.html { redirect_to courses_url }
       format.json { head :no_content }
     end
   end

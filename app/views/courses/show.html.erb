@@ -3,7 +3,12 @@
 <p>
   <b>Name:</b>
   <%= @course.name %>
-</p>
+  </p>
+  <h2> Questions </h2>
+  <% @course.questions.each do |question| %>
+    <%= link_to question.content, course_question_path(@course,question) %><br />
+  <% end %>
+  <%= link_to "New Question",new_course_question_path(@course) %><br /><br />
 
 
 <%= link_to 'Edit', edit_course_path(@course) %> |

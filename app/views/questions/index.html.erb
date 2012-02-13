@@ -15,13 +15,13 @@
     <td><%= question.content %></td>
     <td><%= question.startdate %></td>
     <td><%= question.enddate %></td>
-    <td><%= link_to 'Show', question %></td>
-    <td><%= link_to 'Edit', edit_question_path(question) %></td>
-    <td><%= link_to 'Destroy', question, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Show', course_question_path(@course, question)%></td>
+    <td><%= link_to 'Edit', edit_course_question_path(@course,question) %></td>
+    <td><%= link_to 'Destroy', course_question_path(@course,question), confirm: 'Are you sure?', method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Question', new_question_path %>
+<%= link_to 'New Question', new_course_question_path(@course) %>

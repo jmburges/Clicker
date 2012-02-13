@@ -4,6 +4,8 @@ class QuestionsController < ApplicationController
   # GET /questions.json
   def index
     #question is loaded by load_and_authorize_resource
+    @course = Course.find(params[:course_id])
+    @questions = @course.questions
     
     respond_to do |format|
       format.html # index.html.erb
@@ -45,6 +47,7 @@ class QuestionsController < ApplicationController
   # GET /questions/new.json
   def new
     @question = Question.new
+    @question.course_id=params[:course_id]
     @answers = @question.answers.build
 
     respond_to do |format|

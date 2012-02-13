@@ -28,8 +28,8 @@
     <% end %>
   </div>
 
-<%= link_to 'Edit', edit_question_path(@question) %> |
-<%= link_to 'Back', questions_path %>
+<%= link_to 'Edit', edit_course_question_path(@question.course, @question) %> |
+<%= link_to 'Back', course_path(@question.course) %>
 <hr>
 <% if can? :view_stats, @question %>
 <h2>Response Stats</h2>
