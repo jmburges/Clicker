@@ -3,6 +3,14 @@ class ApplicationController < ActionController::Base
   helper :all
   helper_method :current_user_session, :current_user
   protect_from_forgery
+
+  rescue_from CanCan::AccessDenied do |exception|
+    if current_user.nil?
+      redirect_to login_url, :alert => "There isn't much to see without being logged in"
+    else
+      redirect_to root_url, :alert => exception.message
+    end
+  end
   
   private
     def current_user_session
