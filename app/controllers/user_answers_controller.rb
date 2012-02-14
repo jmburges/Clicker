@@ -22,7 +22,7 @@ class UserAnswersController < ApplicationController
 
     respond_to do |format|
       if @useranswer.update_attributes(params[:user_answer])
-        format.html { redirect_to @useranswer.answer.question, notice: 'useranswer was successfully updated.' }
+        format.html { redirect_to course_question_url(@useranswer.answer.question.course, @useranswer.answer.question), notice: 'useranswer was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
