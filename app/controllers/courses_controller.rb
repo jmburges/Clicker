@@ -14,6 +14,8 @@ class CoursesController < ApplicationController
   # GET /courses/1.json
   def show
     @course = Course.find(params[:id])
+    @open_questions = @course.questions.reject{|q|!q.open?}
+    @closed_questions = @course.questions - @open_questions
 
     respond_to do |format|
       format.html # show.html.erb

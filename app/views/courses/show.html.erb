@@ -1,15 +1,22 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Name:</b>
-  <%= @course.name %>
-  </p>
-  <h2> Questions </h2>
-  <% @course.questions.each do |question| %>
+<h1><%= @course.name %></h1>
+  <h3> Open Questions </h3>
+  <% @open_questions.each do |question| %>
     <%= link_to question.content, course_question_path(@course,question) %><br />
   <% end %>
-  <%= link_to "New Question",new_course_question_path(@course) %><br /><br />
 
+  <h3> Closed Questions </h3>
+  <% @closed_questions.each do |question| %>
+    <%= link_to question.content, course_question_path(@course,question) %><br />
+  <% end %>
+  <% if can? :create, Question %>
+    <%= link_to "New Question",new_course_question_path(@course) %><br /><br />
+  <% end %>
 
-<%= link_to 'Edit', edit_course_path(@course) %> |
+  <%if can? :update, @course %>
+    <%= link_to 'Edit', edit_course_path(@course) %> |
+  <%end %>
+  <br />
 <%= link_to 'Back', courses_path %>

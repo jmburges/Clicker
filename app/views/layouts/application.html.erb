@@ -8,6 +8,12 @@
 </head>
 <body>
   <%= current_user.email unless current_user.nil? %>
+  <% if current_user.nil? %>
+    <%=link_to "login", login_path %>
+  <% else %>
+    <%= link_to "logout", logout_path %>
+  <% end %>
+
 
 <%= yield %>
 
