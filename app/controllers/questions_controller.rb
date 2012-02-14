@@ -47,6 +47,7 @@ class QuestionsController < ApplicationController
   # GET /questions/new.json
   def new
     @question = Question.new
+    @course = Course.find(params[:course_id])
     @question.course_id=params[:course_id]
     @answers = @question.answers.build
 
@@ -67,9 +68,8 @@ class QuestionsController < ApplicationController
     @question = Question.new(params[:question])
     respond_to do |format|
       if @question.save
-        @question.answers.create(params[:answers])
         puts params
-        format.html { redirect_to @question, notice: 'Question was successfully created.' }
+        format.html { redirect_to course_question_path(@question.course,@question), notice: 'Question was successfully created.' }
         format.json { render json: @question, status: :created, location: @question }
       else
         format.html { render action: "new" }
@@ -108,7 +108,6 @@ class QuestionsController < ApplicationController
 
   def open_question
     @question = Question.find(params[:id])
-    authorize! :stop ,@question
     seconds = params[:seconds].to_i+params[:minutes].to_i*60
     @question.startdate = Time.now
     @question.enddate= @question.startdate+seconds

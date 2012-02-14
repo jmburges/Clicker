@@ -17,13 +17,13 @@
   </div>
   Students: <br />
   <% User.students.each do |user|%>
-    <%= check_box_tag :user_id, user.id, @course.users.include?(user),:name =>"course[UserCourses_attributes][#{user.id}][user_id]",:id =>"course_UserCourses_attributes_#{user.id}_user_id" %>
+    <%= check_box_tag "course[user_ids][]", user.id, @course.users.include?(user) %>
     <%= user.email %><br />
   <% end %>
   <br />
   Teachers: <br />
   <% User.teachers.each do |user|%>
-    <%= check_box_tag :user_id, user.id, @course.users.include?(user),:name =>"course[UserCourses_attributes][#{user.id}][user_id]",:id =>"course_UserCourses_attributes_#{user.id}_user_id" %>
+    <%= check_box_tag "course[user_ids][]", user.id, @course.users.include?(user) %>
     <%= user.email %><br />
   <% end %>
   <div class="actions">
