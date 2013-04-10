@@ -20,6 +20,9 @@ Clicker::Application.routes.draw do
   match "questions/:id/open_question" => "questions#open_question"
   match "questions/:id/stop" => "questions#stop"
 
+  match 'auth/:provider/callback', to: 'authorizations#create'
+  match 'auth/failure', to: redirect('/')
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
