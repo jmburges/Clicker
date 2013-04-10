@@ -6,7 +6,7 @@ class UserAnswersController < ApplicationController
     @useranswer = UserAnswer.new(params[:user_answer])
     respond_to do |format|
       if @useranswer.save
-        format.html { redirect_to @useranswer.answer.question, notice: 'useranswer was successfully created.' }
+        format.html { redirect_to course_questions_path(@useranswer.answer.question), notice: 'useranswer was successfully created.' }
         format.json { render json: @useranswer, status: :created, location: @useranswer }
       else
         format.html { render action: "new" }

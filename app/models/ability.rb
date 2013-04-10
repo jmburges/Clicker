@@ -44,6 +44,7 @@ class Ability
       can [:read,:update], User, :id=>user.id
     else
       can :manage, UserSession
+      can :create, User
     end
   end
 end
