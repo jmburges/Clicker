@@ -7,6 +7,8 @@ gem 'rails', '3.2.12'
 
 gem 'sqlite3'
 gem 'omniauth-facebook', '1.4.0'
+gem 'faye'
+gem 'thin'
 
 
 # Gems used only for assets and not required
