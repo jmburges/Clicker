@@ -25,17 +25,6 @@ class QuestionsController < ApplicationController
       @useranswer = current_user.useranswers.build
     end
 
-    #Set up the table
-    data_table = GoogleVisualr::DataTable.new
-    data_table.new_column('string', 'Answer')
-    data_table.new_column('number', 'Responses')
-    data_table.add_rows(@question.answers.size)
-    @question.answers.each_with_index do |answer,i|
-      data_table.set_cell(i,0,answer.content)
-      data_table.set_cell(i,1,answer.users.size)
-    end
-    opts   = { :width => 400, :height => 240, :title => 'Responses', :legend=>{:position => "none"} }
-    @chart = GoogleVisualr::Interactive::ColumnChart.new(data_table, opts)
 
     respond_to do |format|
       format.html # show.html.erb
@@ -61,6 +50,7 @@ class QuestionsController < ApplicationController
   def edit
     @question = Question.find(params[:id])
   end
+
 
   # POST /questions
   # POST /questions.json
@@ -120,4 +110,21 @@ class QuestionsController < ApplicationController
     @question.enddate = Time.now
     @question.save
   end
+  def answer_graph
+    @question = Question.find(params[:question_id])
+    render :json => {
+      :type => 'BarChart',
+      :cols => [['string', 'Answer'], ['number', 'Responses']],
+      :rows => @question.answers.inject([]) do |memo, answer|
+      memo << [answer.content, answer.users.count]
+      memo
+      end,
+        :options => {
+        :chartArea => { :width => '90%', :height => '75%' },
+        :hAxis => { :showTextEvery => 30 },
+        :legend => 'bottom',
+      }
+    }
+  end
+
 end

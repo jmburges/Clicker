@@ -1,5 +1,4 @@
 <%= javascript_include_tag "jcountdown" %>
-<script src='http://www.google.com/jsapi'></script>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -36,13 +35,9 @@
 <%= link_to 'Back', course_path(@question.course) %>
 <hr>
 <% if can? :view_stats, @question %>
-<h2>Response Stats</h2>
-<% @question.answers.each do |answer| %>
-  <%= answer.content %>: <%=answer.users.size %>
-  <br />
-<% end %>
-<div id='chart'></div>
-<%= render_chart @chart, 'chart' %>
+<h2 id="stats">Response Stats</h2>
+<br />
+<%= chart_tag(@question.course,@question,400,:id=>@question.id)%>
 <hr>
 <h2>Correct Users</h2>
 <% @question.correct_users.each do |user| %>

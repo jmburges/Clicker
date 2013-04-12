@@ -3,7 +3,10 @@ Clicker::Application.routes.draw do
   resources :roles
 
   resources :courses do
-    resources :questions
+    resources :questions do
+        get 'answer_graph'
+    end
+
   end
 
   resources :answers do
