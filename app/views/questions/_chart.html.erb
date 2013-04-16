@@ -1,0 +1,27 @@
+<script type="text/javascript">
+jQuery(function ($) {
+  // Load Google visualization library if a chart element exists
+  if ($('#stats').length > 0) {
+    $.getScript('https://www.google.com/jsapi', function (data, textStatus) {
+      google.load('visualization', '1.0', { 'packages': ['corechart'], 'callback': function () {
+        data_table = new google.visualization.DataTable();
+        data_table.addColumn({"type":"string","label":"Answer"});
+        data_table.addColumn({"type":"number","label":"Responses"});
+        <% question.answers.each do |answer| %>
+          data_table.addRow([{v: "<%=answer.content%>"}, {v: <%=answer.users.count%>}]);
+        <% end %>
+      chart = new google.visualization.ColumnChart(document.getElementById('chart'));
+
+      chart.draw(data_table, {width: 400, height: 240, title: "Responses", legend: {position: "none"}});
+      var faye = new Faye.Client('http://localhost:9292/faye');
+      faye.subscribe('/messages/new',function(data){
+        parsed = jQuery.parseJSON(data);
+        row = data_table.getFilteredRows([{column:0, value:parsed.answer }])[0];
+        data_table.setCell(row,1,parseInt(parsed.num));
+        chart.draw(data_table, {width: 400, height: 240, title: "Responses", legend: {position: "none"}});
+      });
+      }});
+    });
+  }
+});
+</script>
