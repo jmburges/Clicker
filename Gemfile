@@ -28,7 +28,6 @@ gem 'authlogic'
 gem 'cancan'
 gem 'rolify'
 gem 'coffeebeans'
-gem 'google_visualr'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

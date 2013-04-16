@@ -70,7 +70,6 @@ GEM
       yajl-ruby (>= 1.0.0)
     faye-websocket (0.4.7)
       eventmachine (>= 0.12.0)
-    google_visualr (2.1.7)
     hashie (2.0.3)
     hike (1.2.2)
     http_parser.rb (0.5.3)
@@ -166,7 +165,6 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   coffeebeans
   faye
-  google_visualr
   jquery-rails
   omniauth-facebook (= 1.4.0)
   rails (= 3.2.12)
