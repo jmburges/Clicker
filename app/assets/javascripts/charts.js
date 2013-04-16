@@ -22,8 +22,16 @@ jQuery(function ($) {
             chart.draw(div.get(0));
 
             var faye = new Faye.Client('http://localhost:9292/faye');
-            faye.subscribe('/messages/new',function(data){
-              updateChart(chart,div.get(0),data);
+            faye.subscribe('/charts/new_answer',function(data){
+              if (data=="updated") {
+                $.getJSON(div.data('chart'),function(data){
+                  var table = new google.visualization.DataTable();
+                  $.each(data.cols, function () { table.addColumn.apply(table, this); });
+                  table.addRows(data.rows);
+                  chart.setDataTable(table);
+                  chart.draw(div.get(0));
+                });
+              }
             });
           });
         });
@@ -31,12 +39,3 @@ jQuery(function ($) {
     });
   }
 });
-function updateChart(chart,element,data) {
-  table = chart.getDataTable();
-  $.each(data.content,function(i,value){
-    row = table.getFilteredRows([{column:0, value:value }])[0];
-    current = table.getValue(row,1);
-    table.setCell(row,1,current+parseInt(data.change[i]));
-  });
-  chart.draw(element);
-}
